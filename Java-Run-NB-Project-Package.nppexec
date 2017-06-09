@@ -1,0 +1,37 @@
+//save current file
+//NPP_SAVE
+
+//npp_console disable
+set _javabin = C:\Program Files\Java\jdk1.8.0_131\bin
+set _pkgsourcedir = $(CURRENT_DIRECTORY)
+
+// Get package name
+set _lastslashpos ~ strrfind "$(_pkgsourcedir)" \
+set _package ~ substr $(_lastslashpos) 999 $(_pkgsourcedir)
+set _package ~ substr 1 999 $(_package)
+set _pkgsourcedir ~ substr 0 $(_lastslashpos) $(_pkgsourcedir)
+
+// Get NetBeans project directory
+set _lastslashpos ~ strrfind "$(_pkgsourcedir)" \
+set _NBprojdir ~ substr 0 $(_lastslashpos) $(_pkgsourcedir)
+
+// Get class files directory
+set _classdir = $(_NBprojdir)\build\classes
+
+// Set combined classpath
+set _classpath = $(_classdir)
+
+//npp_console enable
+
+echo == START DEBUG BLOCK ==
+//echo _classdir = $(_classdir)
+//echo _classpath = $(_classpath)
+//echo _javapath = $(_javapath)
+//echo _lastslashpos = $(_lastslashpos)
+//echo _package = $(_package)
+//echo _projectdir = $(_projectdir)
+//echo _srcdir = $(_srcdir)
+//echo DONE.
+echo === END DEBUG BLOCK ===
+
+"$(_javabin)\java" -classpath "$(_classpath)" $(_package).$(NAME_PART)

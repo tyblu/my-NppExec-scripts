@@ -1,0 +1,12 @@
+// NppExec script to compile, run, then delete .class files for a single .java file
+
+set _javabin = C:\Program Files\Java\jdk1.8.0_131\bin
+
+echo Compiling $(FILE_NAME) into $(CURRENT_DIRECTORY)
+"$(_javabin)\javac" $(FILE_NAME)
+
+echo Running $(NAME_PART) from $(CURRENT_DIRECTORY)
+"$(_javabin)\java" -classpath "$(CURRENT_DIRECTORY)" $(NAME_PART)
+
+echo Removing .class files from $(CURRENT_DIRECTORY)
+cmd /c cd $(CURRENT_DIRECTORY) & del $(NAME_PART).class
